@@ -42,7 +42,7 @@
 <a name="synopsis"></a>
 
 ##1\. Synopsis
-_EventEmitter4_ is an alternative to node's built-in [EventEmitter](http://nodejs.org/api/events.html) class, and to the existing alternatives [EventEmitter2](https://github.com/asyncly/EventEmitter2) and [EventEmitter3](https://github.com/3rd-Eden/EventEmitter3).
+_EventEmitter4_ is an alternative to node's built-in [EventEmitter](http://nodejs.org/api/events.html) class, and to the existing alternatives [EventEmitter2](https://github.com/asyncly/EventEmitter2) and [EventEmitter3](https://github.com/3rd-Eden/EventEmitter3) that should make your own code easier to debug.
 
 <a name="installation"></a>
 
@@ -79,6 +79,8 @@ Open a terminal. In order to run for example, example 1:
 cd myproject/node_modules/eventemitter4
 node doc/examples/1-on.js
 ```
+
+Classes that inherit from event emitters are notoriously difficult to debug. Do not hesitate to use the `EventEmitter.toString()` function to dump a copy of the internal state of the emitter. This will usually tell you what is going on, and where the bug is.
 
 <a name="example1"></a>
 
