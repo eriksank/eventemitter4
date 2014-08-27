@@ -71,8 +71,8 @@ Emitter.prototype.onAny=function(listener) {
  * Emits an event and triggers the listeners registered for this event.
  * function(event, [arg1, arg2, arg3, ...])
  * @param {function} event The event to trigger.
- * @param {any} [arg1,arg2,arg3,...] Optional parameters that should be
-                transmitted to the listener. As many parameters as needed can be transmitted
+ * @param {any} arg1,arg2,arg3,... Optional parameters that will be
+                transmitted to the listener. As many parameters as needed can be transmitted.
  * @returns {void} nothing.
  */
 Emitter.prototype.emit=function() {

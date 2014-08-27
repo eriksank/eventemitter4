@@ -18,7 +18,7 @@
 5.3\.  [on(event, listener)](#oneventlistener)  
 5.4\.  [once(event, listener)](#onceeventlistener)  
 5.5\.  [onAny(listener)](#onanylistener)  
-5.6\.  [emit(event, [arg1,arg2,arg3,...])](#emitevent[arg1arg2arg3...])  
+5.6\.  [emit(event, arg1,arg2,arg3,...)](#emiteventarg1arg2arg3...)  
 5.7\.  [removeListener(event, listener)](#removelistenereventlistener)  
 5.8\.  [removeAllListeners([event])](#removealllisteners[event])  
 5.9\.  [toString()](#tostring)  
@@ -339,9 +339,9 @@ _Params_
 
 * **function** *listener* The listener function to register.
 
-<a name="emitevent[arg1arg2arg3...]"></a>
+<a name="emiteventarg1arg2arg3..."></a>
 
-### 5.6\. emit(event, [arg1,arg2,arg3,...])
+### 5.6\. emit(event, arg1,arg2,arg3,...)
 
 Emits an event and triggers the listeners registered for this event.
 function(event, [arg1, arg2, arg3, ...])
@@ -349,7 +349,7 @@ function(event, [arg1, arg2, arg3, ...])
 _Params_ 
 
 * **function** *event* The event to trigger.
-* **any** *[arg1,arg2,arg3,...]* Optional parameters that should be                 transmitted to the listener. As many parameters as needed can be transmitted
+* **any** *arg1,arg2,arg3,...* Optional parameters that will be                 transmitted to the listener. As many parameters as needed can be transmitted.
 
 <a name="removelistenereventlistener"></a>
 

@@ -37,7 +37,7 @@ _Params_
 
 * **function** *listener* The listener function to register.
 
-### emit(event, [arg1,arg2,arg3,...])
+### emit(event, arg1,arg2,arg3,...)
 
 Emits an event and triggers the listeners registered for this event.
 function(event, [arg1, arg2, arg3, ...])
@@ -45,7 +45,7 @@ function(event, [arg1, arg2, arg3, ...])
 _Params_ 
 
 * **function** *event* The event to trigger.
-* **any** *[arg1,arg2,arg3,...]* Optional parameters that should be                 transmitted to the listener. As many parameters as needed can be transmitted
+* **any** *arg1,arg2,arg3,...* Optional parameters that will be                 transmitted to the listener. As many parameters as needed can be transmitted.
 
 ### removeListener(event, listener)
 
