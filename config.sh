@@ -8,4 +8,4 @@ browserMainFile=index.js
 
 #generate documentation of:
 apiFiles="index.js"
-
+newMarkDownLevelForFunctionHeadings=3
