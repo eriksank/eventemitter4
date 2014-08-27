@@ -29,8 +29,8 @@ emitter.on('finished-playing-ball',ann);
 
 emitter.emit('finished-playing-ball');
 emitter.removeAllListeners('finished-playing-ball');
-console.log('-- Both John and Ann stop listening now to the finished-playing-ball event'+
-        ' but they still listen to the finished-eating event --');
+console.log('-- Mum, John and Ann now stop listening to the finished-playing-ball event.'+
+        ' They still listen to the finished-eating event. --');
 emitter.emit('finished-playing-ball'); //in vain
 emitter.emit('finished-playing-ball'); //in vain
 emitter.emit('finished-eating');
