@@ -87,6 +87,8 @@ node doc/examples/1-on.js
 
 For: _EventEmitter4.on(event,listener)_
 
+**Program**
+
 ```javascript
 var EventEmitter=require('eventemitter4');
 var emitter=new EventEmitter();
@@ -99,9 +101,15 @@ emitter.emit('finished-eating','John');
 
 ```
 
+**Output**
+
+        clean up the table, John.
+
 <a name="example2"></a>
 
 ### 4.3\. Example 2
+
+**Program**
 
 For: _EventEmitter4.once(event,listener)_
 
@@ -118,12 +126,17 @@ emitter.emit('finished-eating','John');
 emitter.emit('finished-eating','John');
 
 ```
+**Output**
+
+        clean up the table, John.
 
 <a name="example3"></a>
 
 ### 4.4\. Example 3
 
 For: _EventEmitter4.onAny(listener)_
+
+**Program**
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -148,11 +161,21 @@ emitter.emit('finished-playing-ball','Ann');
 
 ```
 
+**Output**
+
+        clean up the table, John.
+        yes, mum
+        go, take a shower, John.
+        yes, mum
+        go, take a shower, Ann.
+
 <a name="example4"></a>
 
 ### 4.5\. Example 4
 
 For: _EventEmitter4.removeListener(event,listener)_
+
+**Program**
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -176,11 +199,20 @@ emitter.emit('finished-eating','John');
 
 ```
 
+**Output**
+
+        clean up the table, John.
+        yes, mum
+        clean up the table, John.
+        clean up the table, John.
+
 <a name="example5"></a>
 
 ### 4.6\. Example 5
 
 For: _EventEmitter4.removeAllListeners([event])_
+
+**Program**
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -216,9 +248,20 @@ emitter.emit('finished-eating');
 
 ```
 
+**Output**
+
+        go, take a shower.
+        yes, mum (john)
+        yes, mum (ann)
+        clean up the table.
+        yes, mum (john)
+        yes, mum (ann)
+
 <a name="example6"></a>
 
 ### 4.7\. Example 6
+
+**Program**
 
 For: _one possible way to inherit from EventEmitter4_
 
@@ -267,9 +310,18 @@ mum.reactToFinishedEating();
 
 ```
 
+**Output**
+
+        giving order to John
+        Yes, mum (John)
+        giving order to Ann
+        Yes, mum (Ann)
+
 <a name="example7"></a>
 
 ### 4.8\. Example 7
+
+**Program**
 
 For: _EventEmitter4.toString()_
 
@@ -285,6 +337,12 @@ emitter.on('finished-playing-ball',function() {});
 console.log(emitter.toString());
 
 ```
+
+**Output**
+
+        {"listeners":{"finished-eating":3,"finished-playing-ball":1},
+        "onceListeners":{},
+        "listenersToAnyEvent":0}
 
 <a name="api"></a>
 

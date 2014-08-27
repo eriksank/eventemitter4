@@ -14,6 +14,9 @@ fi
 message="$1"
 
 ./build.sh
+
+mocha
+
 git add -A .
 git commit -m "$message"
 git push
