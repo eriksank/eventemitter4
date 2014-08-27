@@ -1,6 +1,6 @@
 var assert=require('assert');
 var EventEmitter=require('../index.js');
-var _=require('underscore');
+var _=require('underscore'); //we will use its extend() function
 
 describe('toString', function(){
         it('should be inheritable', function(done){

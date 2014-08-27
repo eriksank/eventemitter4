@@ -282,7 +282,7 @@ emitter.emit('finished-eating');
 
 **Program**
 
-For: _one possible way to inherit from EventEmitter4_
+For: _just one possible way to inherit from EventEmitter4_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
