@@ -26,6 +26,7 @@ Emitter.prototype.init=function(listener) {
         this.listeners={};
         this.onceListeners={};
         this.listenersToAnyEvent=[];
+        this.event=null;
 }
 
 Emitter.prototype.validateListener=function(listener) {
