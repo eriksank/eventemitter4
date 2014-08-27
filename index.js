@@ -58,6 +58,7 @@ Emitter.prototype.once=function(event,listener) {
 
 /**
  * Registers a listener function for all events.
+ * The listener can retrieve what event it was called for from the emitter.event variable
  * @param {function} listener The listener function to register.
  * @returns {void} nothing.
  */
