@@ -5,13 +5,13 @@
 3\.  [Browser support](#browsersupport)  
 4\.  [Examples](#examples)  
 4.1\.  [Running the examples](#runningtheexamples)  
-4.2\.  [on(event,listener)](#oneventlistener)  
-4.3\.  [once(event,listener)](#onceeventlistener)  
-4.4\.  [onAny(listener)](#onanylistener)  
-4.5\.  [removeListener(event,listener)](#removelistenereventlistener)  
-4.6\.  [removeAllListeners([event])](#removealllisteners[event])  
-4.7\.  [One way to inherited from EventEmitter4](#onewaytoinheritedfromeventemitter4)  
-4.8\.  [toString()](#tostring)  
+4.2\.  [Example 1](#example1)  
+4.3\.  [Example 2](#example2)  
+4.4\.  [Example 3](#example3)  
+4.5\.  [Example 4](#example4)  
+4.6\.  [Example 5](#example5)  
+4.7\.  [Example 6](#example6)  
+4.8\.  [Example 7](#example7)  
 5\.  [API](#api)  
 6\.  [Development tools](#developmenttools)  
 7\.  [Building](#building)  
@@ -72,9 +72,11 @@ cd myproject/node_modules/eventemitter4
 node doc/examples/1-on.js
 ```
 
-<a name="oneventlistener"></a>
+<a name="example1"></a>
 
-### 4.2\. on(event,listener)
+### 4.2\. Example 1
+
+For `EventEmitter4.on(event,listener)`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -88,9 +90,11 @@ emitter.emit('finished-eating','John');
 
 ```
 
-<a name="onceeventlistener"></a>
+<a name="example2"></a>
 
-### 4.3\. once(event,listener)
+### 4.3\. Example 2
+
+For `EventEmitter4.once(event,listener)`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -106,9 +110,11 @@ emitter.emit('finished-eating','John');
 
 ```
 
-<a name="onanylistener"></a>
+<a name="example3"></a>
 
-### 4.4\. onAny(listener)
+### 4.4\. Example 3
+
+For `EventEmitter4.onAny(listener)`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -133,9 +139,11 @@ emitter.emit('finished-playing-ball','Ann');
 
 ```
 
-<a name="removelistenereventlistener"></a>
+<a name="example4"></a>
 
-### 4.5\. removeListener(event,listener)
+### 4.5\. Example 4
+
+For `EventEmitter4.removeListener(event,listener)`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -159,9 +167,11 @@ emitter.emit('finished-eating','John');
 
 ```
 
-<a name="removealllisteners[event]"></a>
+<a name="example5"></a>
 
-### 4.6\. removeAllListeners([event])
+### 4.6\. Example 5
+
+For `EventEmitter4.removeAllListeners([event])`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -197,9 +207,11 @@ emitter.emit('finished-eating');
 
 ```
 
-<a name="onewaytoinheritedfromeventemitter4"></a>
+<a name="example6"></a>
 
-### 4.7\. One way to inherited from EventEmitter4
+### 4.7\. Example 6
+
+Showing one possible way to inherited from EventEmitter4.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -246,9 +258,11 @@ mum.reactToFinishedEating();
 
 ```
 
-<a name="tostring"></a>
+<a name="example7"></a>
 
-### 4.8\. toString()
+### 4.8\. Example 7
+
+For `EventEmitter4.toString()`.
 
 ```javascript
 var EventEmitter=require('eventemitter4');
