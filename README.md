@@ -41,7 +41,7 @@
 <a name="synopsis"></a>
 
 ##1\. Synopsis
-_EventEmitter4_ is an alternative to node's built-in _EventEmitter_ class, and to the existing alternatives [EventEmitter2](https://github.com/asyncly/EventEmitter2) and [EventEmitter3](https://github.com/3rd-Eden/EventEmitter3).
+_EventEmitter4_ is an alternative to node's built-in [EventEmitter](http://nodejs.org/api/events.html) class, and to the existing alternatives [EventEmitter2](https://github.com/asyncly/EventEmitter2) and [EventEmitter3](https://github.com/3rd-Eden/EventEmitter3).
 
 <a name="installation"></a>
 
