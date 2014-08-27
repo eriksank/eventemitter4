@@ -1,0 +1,26 @@
+{
+        "name" : "eventemitter4",
+        "version": "0.0.1",
+        "description" : "EventEmitter4 is an alternative to node's built-in EventEmitter class, and to the existing alternatives EventEmitter2 and EventEmitter3",
+        "author" : "Erik Poupaert <erik@sankuru.biz>",
+        "main" : "index.js",
+         "repository": {
+          "type": "git",
+          "url": "git@github.com:eriksank/eventemitter4.git"
+        },
+          "bugs": {
+          "url": "https://github.com/eriksank/eventemitter4/issues"
+        },
+          "keywords": [
+          "events",
+          "eventemitter2",
+          "eventemitter3"
+        ],
+        "dependencies" :
+        { 
+                "underscore" : "jashkenas/underscore"
+        },
+        "readmeFilename": "README.md",
+        "license": "LGPL"
+}
+
