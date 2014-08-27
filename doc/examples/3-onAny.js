@@ -1,12 +1,12 @@
 var EventEmitter=require('../../index.js');
 var emitter=new EventEmitter();
 
-//mum
+//Mum
 emitter.on('finished-eating',function(who) {
         console.log('clean up the table, '+who+'.');
 });
 
-//mum
+//Mum
 emitter.on('finished-playing-ball',function(who) {
         console.log('go, take a shower, '+who+'.');
 });

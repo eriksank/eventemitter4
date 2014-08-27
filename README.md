@@ -147,12 +147,12 @@ For: _EventEmitter4.onAny(listener)_
 var EventEmitter=require('eventemitter4');
 var emitter=new EventEmitter();
 
-//mum
+//Mum
 emitter.on('finished-eating',function(who) {
         console.log('clean up the table, '+who+'.');
 });
 
-//mum
+//Mum
 emitter.on('finished-playing-ball',function(who) {
         console.log('go, take a shower, '+who+'.');
 });

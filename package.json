@@ -1,6 +1,6 @@
 {
         "name" : "eventemitter4",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "description" : "EventEmitter4 is an alternative to node's built-in EventEmitter class, and to the existing alternatives EventEmitter2 and EventEmitter3",
         "author" : "Erik Poupaert <erik@sankuru.biz>",
         "main" : "index.js",
