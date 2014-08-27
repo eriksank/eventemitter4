@@ -1,14 +1,17 @@
 var EventEmitter=require('../../index.js');
 var emitter=new EventEmitter();
 
+//mum
 emitter.on('finished-eating',function(who) {
         console.log('clean up the table, '+who+'.');
 });
 
+//mum
 emitter.on('finished-playing-ball',function(who) {
         console.log('go, take a shower, '+who+'.');
 });
 
+//john
 emitter.onAny(function(who) {
         if(who==='John')
                 console.log('yes, mum');

@@ -23,7 +23,7 @@ describe('toString', function(){
                         this.whatever='I am mum';        
                 }
 
-                Mum.prototype.reactToFinishedEating=function() {
+                Mum.prototype.givesOrdersToKids=function() {
                         this.emit('give-order-to-kid');
                         this.emit('give-order-to-kid');
                 }
@@ -44,7 +44,7 @@ describe('toString', function(){
                         done();
                 });
 
-                mum.reactToFinishedEating();
+                mum.givesOrdersToKids();
                 
         });
 });

@@ -68,8 +68,6 @@ And a minimized version thereof:
 
 ##4\. Examples
 
-{{DRAFT}}
-
 <a name="runningtheexamples"></a>
 
 ### 4.1\. Running the examples
@@ -105,6 +103,8 @@ emitter.emit('finished-eating','John');
 
         clean up the table, John.
 
+Any function registered `on` an event will be triggered when the emitter invokes the `emit` function with that particular event.
+
 <a name="example2"></a>
 
 ### 4.3\. Example 2
@@ -130,6 +130,8 @@ emitter.emit('finished-eating','John');
 
         clean up the table, John.
 
+After triggering a listener registered with `once`, it will fire one time for the event. After that it won't fire any longer.
+
 <a name="example3"></a>
 
 ### 4.4\. Example 3
@@ -142,14 +144,17 @@ For: _EventEmitter4.onAny(listener)_
 var EventEmitter=require('eventemitter4');
 var emitter=new EventEmitter();
 
+//mum
 emitter.on('finished-eating',function(who) {
         console.log('clean up the table, '+who+'.');
 });
 
+//mum
 emitter.on('finished-playing-ball',function(who) {
         console.log('go, take a shower, '+who+'.');
 });
 
+//john
 emitter.onAny(function(who) {
         if(who==='John')
                 console.log('yes, mum');
@@ -169,6 +174,8 @@ emitter.emit('finished-playing-ball','Ann');
         yes, mum
         go, take a shower, Ann.
 
+On a particular event, _Mum_ will issue an instruction for _John_, while _John_ is registered to listen to any message. So, he hears everything. However, because of the _if_-clause, he only responds to events for which the argument _who_ is _John_. Note that listeners are invoked in the order in which they were registered. Listeners to any event are triggered after all listeners to a particular event.
+
 <a name="example4"></a>
 
 ### 4.5\. Example 4
@@ -181,6 +188,7 @@ For: _EventEmitter4.removeListener(event,listener)_
 var EventEmitter=require('eventemitter4');
 var emitter=new EventEmitter();
 
+//Mum
 emitter.on('finished-eating',function(who) {
         console.log('clean up the table, '+who+'.');
 });
@@ -190,6 +198,7 @@ var john=function(who) {
                 console.log('yes, mum');
 };
 
+//John
 emitter.on('finished-eating',john);
 
 emitter.emit('finished-eating','John');
@@ -206,6 +215,9 @@ emitter.emit('finished-eating','John');
         clean up the table, John.
         clean up the table, John.
 
+
+Both _Mum_ and _John_ is registered for the event. The first time he receives the event he responds. After that, he stops listening and no longer responds. In this example, the result is in fact the same as using the _once_ function.
+
 <a name="example5"></a>
 
 ### 4.6\. Example 5
@@ -218,10 +230,12 @@ For: _EventEmitter4.removeAllListeners([event])_
 var EventEmitter=require('eventemitter4');
 var emitter=new EventEmitter();
 
+//Mum
 emitter.on('finished-eating',function() {
         console.log('clean up the table.');
 });
 
+//Mum
 emitter.on('finished-playing-ball',function(who) {
         console.log('go, take a shower.');
 });
@@ -230,6 +244,7 @@ var john=function() {
         console.log('yes, mum (john)');
 };
 
+//John
 emitter.on('finished-eating',john);
 emitter.on('finished-playing-ball',john);
 
@@ -237,13 +252,16 @@ var ann=function() {
         console.log('yes, mum (ann)');
 };
 
+//Ann
 emitter.on('finished-eating',ann);
 emitter.on('finished-playing-ball',ann);
 
 emitter.emit('finished-playing-ball');
 emitter.removeAllListeners('finished-playing-ball');
-emitter.emit('finished-playing-ball');
-emitter.emit('finished-playing-ball');
+console.log('-- Both John and Ann stop listening now to the finished-playing-ball event'+
+        ' but they still listen to the finished-eating event --');
+emitter.emit('finished-playing-ball'); //in vain
+emitter.emit('finished-playing-ball'); //in vain
 emitter.emit('finished-eating');
 
 ```
@@ -253,6 +271,7 @@ emitter.emit('finished-eating');
         go, take a shower.
         yes, mum (john)
         yes, mum (ann)
+        -- Both John and Ann stop listening now to the finished-playing-ball event but they still listen to the finished-eating event --
         clean up the table.
         yes, mum (john)
         yes, mum (ann)
@@ -277,15 +296,19 @@ function Mum() {
         this.init();
 }
 
+//extend Mum with EventEmitter
 _.extend(Mum.prototype,EventEmitter.prototype);
+//Keep track of the parentInit function
 Mum.prototype.parentInit=EventEmitter.prototype.init;
 
+//Calls the parent init() function
 Mum.prototype.init=function() {
         this.parentInit();
         this.whatever='I am mum';        
 }
 
-Mum.prototype.reactToFinishedEating=function() {
+//This function configures Mum to give orders
+Mum.prototype.givesOrdersToKids=function() {
 
         console.log('giving order to John');
         this.emit('give-order-to-kid','John');
@@ -296,17 +319,20 @@ Mum.prototype.reactToFinishedEating=function() {
 
 var mum=new Mum();
 
+//John
 mum.on('give-order-to-kid',function(who) {
         if(who==='John')
                 console.log('Yes, mum (John)');
 });
 
+//Ann
 mum.on('give-order-to-kid',function(who) {
         if(who==='Ann')
                 console.log('Yes, mum (Ann)');
 });
 
-mum.reactToFinishedEating();
+//
+mum.givesOrdersToKids();
 
 ```
 
@@ -316,6 +342,8 @@ mum.reactToFinishedEating();
         Yes, mum (John)
         giving order to Ann
         Yes, mum (Ann)
+
+There are many ways to organize inheritance in Javascript. In this one, we use _underscorejs_ to extend the prototype of the inheriting class with the functions of the parent class.
 
 <a name="example7"></a>
 
@@ -343,6 +371,9 @@ console.log(emitter.toString());
         {"listeners":{"finished-eating":3,"finished-playing-ball":1},
         "onceListeners":{},
         "listenersToAnyEvent":0}
+
+After registering 4 listeners on 2 different events, you can see in the internal state of the emitter for which events there are listeners registered. This should help with debugging situations in which you expected something else.
+
 
 <a name="api"></a>
 

@@ -9,15 +9,19 @@ function Mum() {
         this.init();
 }
 
+//extend Mum with EventEmitter
 _.extend(Mum.prototype,EventEmitter.prototype);
+//Keep track of the parentInit function
 Mum.prototype.parentInit=EventEmitter.prototype.init;
 
+//Calls the parent init() function
 Mum.prototype.init=function() {
         this.parentInit();
         this.whatever='I am mum';        
 }
 
-Mum.prototype.reactToFinishedEating=function() {
+//This function configures Mum to give orders
+Mum.prototype.givesOrdersToKids=function() {
 
         console.log('giving order to John');
         this.emit('give-order-to-kid','John');
@@ -28,15 +32,18 @@ Mum.prototype.reactToFinishedEating=function() {
 
 var mum=new Mum();
 
+//John
 mum.on('give-order-to-kid',function(who) {
         if(who==='John')
                 console.log('Yes, mum (John)');
 });
 
+//Ann
 mum.on('give-order-to-kid',function(who) {
         if(who==='Ann')
                 console.log('Yes, mum (Ann)');
 });
 
-mum.reactToFinishedEating();
+//
+mum.givesOrdersToKids();
 
