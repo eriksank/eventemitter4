@@ -78,27 +78,29 @@ Emitter.prototype.onAny=function(listener) {
 Emitter.prototype.emit=function() {
 
         var args=_(arguments).toArray();
-        var event=args.shift();
+        this.event=args.shift();
         
         //notify the normal listeners
-        if(_(this.listeners).has(event)) {
-                this.listeners[event].forEach(function(listener){
+        if(_(this.listeners).has(this.event)) {
+                this.listeners[this.event].forEach(function(listener){
                         listener.apply(this,args);
                 });
         }
         
         //notify the once listeners
-        if(_(this.onceListeners).has(event)) {
-                this.onceListeners[event].forEach(function(listener){
+        if(_(this.onceListeners).has(this.event)) {
+                this.onceListeners[this.event].forEach(function(listener){
                         listener.apply(this,args);
                 });
-                this.onceListeners=_(this.onceListeners).omit(event);
+                this.onceListeners=_(this.onceListeners).omit(this.event);
         }
 
         //notify the listeners to all events
         this.listenersToAnyEvent.forEach(function(listener){
                 listener.apply(this,args);
         });
+
+        this.event=null;
 
 };
 

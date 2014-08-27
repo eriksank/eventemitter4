@@ -26,11 +26,12 @@
 7\.  [Building](#building)  
 8\.  [Testing](#testing)  
 9\.  [Why EventEmitter4](#whyeventemitter4)  
-9.1\.  [Let's debunk a widespread fallacy](#let'sdebunkawidespreadfallacy)  
+9.1\.  [Let us first debunk a widespread fallacy](#letusfirstdebunkawidespreadfallacy)  
 9.2\.  [underscore.js](#underscore.js)  
-9.3\.  [Why not the standard nodejs EventEmitter](#whynotthestandardnodejseventemitter)  
-9.4\.  [Why not EventEmitter2](#whynoteventemitter2)  
-9.5\.  [Why not EventEmitter3](#whynoteventemitter3)  
+9.3\.  [Concerning performance](#concerningperformance)  
+9.4\.  [Why not the standard nodejs EventEmitter](#whynotthestandardnodejseventemitter)  
+9.5\.  [Why not EventEmitter2](#whynoteventemitter2)  
+9.6\.  [Why not EventEmitter3](#whynoteventemitter3)  
 10\.  [Contact](#contact)  
 10.1\.  [Support](#support)  
 10.2\.  [Projects](#projects)  
@@ -501,57 +502,79 @@ mocha
 
 {{ DRAFT }}
 
-<a name="let'sdebunkawidespreadfallacy"></a>
+<a name="letusfirstdebunkawidespreadfallacy"></a>
 
-###9.1\. Let's debunk a widespread fallacy
+###9.1\. Let us first debunk a widespread fallacy
 
-http://en.wikipedia.org/wiki/Information_hiding
--information hiding: no need to know 
+The idea behind the [information hiding](http://en.wikipedia.org/wiki/Information_hiding) concept is that users of a module should only know about the functions listed in the module's API. This is true, until there are bugs either in your own program or in the external module. The bugs in your own program may very well cause the module's private variables to be in a state that you did not expect. You may not be able to detect this just be looking at the internal state of your own program. You will need to have a close look at the internal state of the module. If there is no way in which the API of the module can expose its full state to you, you may be unable to solve the bug in your own program.
 
--only access through API
+It is well-known that debugging eventEmitter issues in your own program can be seriously tricky. That is why the _EventEmitter4_ class implements a _toString()_ function that dumps a summary of its internal state.
 
--- only to some extent true for users of the module
--- not true at all for extenders of the module
--- most users will also be extending eventemitter
+If you use the _EventEmitter4_ class, you'd better know that it stores its ordinary listeners in an object of which each key is an event, and in which each key contains an array of listener functions. The once-only listeners are stored in exactly the same way. The listeners to all events are just stored in an array. The numbers that you can see in the internal state dump of _EventEmitter4_, are just a count of the listeners that it contains in that particular array.
 
-- Even for users, it is not entirely true
+When you only _use_ the module, you may still be able to get away with just using the module, without understanding how its internal state is stored and what the values are at any point in time, but when you need to extend the module, this is usually no longer true. Your own functions will probably have to manipulate that internal state too.
 
--- debugging : console.log of the internal state or part of the internal state
--- a problem in your own program can often only be understood by looking at the corrupted state of an external module
--- you must be able to dump the internal state of this module
--- it should have a .toString() method
+Most users of the _EventEmitter_ class will actually be extending it by inheriting it in their own classes. Therefore, the idea that they do not need to know how the internal storage of the _EventEmitter_ class works, is not particularly true. Furthermore, from the issue lists in the other projects, you can easily see that these users want to add more functions to the _EventEmitter_ class. It would be much better if they could actually do that by themselves. Most of these feature requests are only applicable to very particular situations. There would be no point in burdening the core project with such sometimes very ideosyncratic functions.
 
 <a name="underscore.js"></a>
 
 ###9.2\. underscore.js
 
-- Building EventEmitter --> almost trivial 
-- set algebra (functional programming)
-==> not relational algebra!
-- when debugging your own code, the code of the external module matters
+When using a library like [underscore.js](http://underscorejs.org), it is almost trivial to manage the internal data structure of a class like _EventEmitter4_.
 
-much easier to read
-much easier for other people to help fixing bugs and offer pull requests
+Some people call a tool like _underscore.js_ a tool of functional programming. It is true that probably all of its functions are [idempotent](http://en.wikipedia.org/wiki/Idempotence) and therefore do not keep internal state. That part is indeed the same what functional programming languages try to achieve, but functional programming is much wider than that. In my opinion, _underscore.js_ is better termed as an implementation of _set algebra_. It pretty much does the same as SQL, but then just one one table. The main difference between _underscore.js_ and SQL, is that _underscore.js_ does not implement functions for dealing with the [cartesian product](http://en.wikipedia.org/wiki/Cartesian_product).
 
-- performance: relegated to underscore.js
-==> now it is their problem
+The use of set algebra often turns functions that deal with tree data structures into one-liners. Since _EventEmitter_ only deals with a tree of two levels, it is even a relatively simple data structure. The use of set algebra is therefore results in suprisingly short programs, that are at the same time, usually much easier to read. This means that you can easily put _console.log()_ statements in the source code, if you ever need it. Furthermore, this also means that it is much easier for other people to help fixing bugs and offer pull requests.
+
+<a name="concerningperformance"></a>
+
+###9.3\. Concerning performance
+
+Since all statements are calls into _underscore.js_, it relegates any performance issue to that module. Seriously, _EventEmitter4_ has no performance characteristics on its own.
+
+Furthermore, I strongly suspect that the performance for _underscore.js_ is mostly relegated to the performance of the implementation of _Object_ and _Array_ classes in nodejs and, since it repeatedly uses function invocations, the Javascript engine's minimization of overhead in function calls. This responsibility for those areas falls squarely onto the Google v8 team. If they manage to improve it, they do not just improve it for _EventEmitter4_ but for all possible modules and applications at the same time.
+
+In other words, an alternative _EventEmitter_ implementation can only be fundamentally faster than alternative _EventEmitter4_ if it uses faster data structures than the standard _Object_ and _Array_ classes.
+
+The _EventEmitter2_ and _EventEmitter3_ libraries don't do this. Painstakingly spelling out data manipulations manually, as they do, instead of using set algebra will not make their programs any faster. It will just bloat the source code and make it more difficult to read. 
+
+If alternative implementations are faster, it could also mean that they use fewer function invocations and that function invocation goes along with a lot of overhead, and therefore would suffer a performance penalty in NodeJS. But then again, in that case all NodeJS code would be affected. Typical NodeJS code is replete with listeners functions and callback functions. There would be no point in trying to fix that problem just in _EventEmitter4_.
+
+Performance in ultra-simple code such as _EventEmitter4_ is something that can only be improved at lower levels.
 
 <a name="whynotthestandardnodejseventemitter"></a>
 
-###9.3\. Why not the standard nodejs EventEmitter
-- no onAny
+###9.4\. Why not the standard nodejs EventEmitter
+
+I really needed an `onAny()` function in my project. The standard nodejs EventEmitter does not implement it. At the same time, the internal data structure of the standard _EventEmitter_ class is particularly not documented anywhere, as far as I know. This kind of modules is usually full of (often useless) performance hacks that render the source code unintelligible. I did not even check. 
 
 <a name="whynoteventemitter2"></a>
 
-###9.4\. Why not EventEmitter2
-- has onAny
-- Too much functionality: on('foo.*')
-==> hard to debug
+###9.5\. Why not EventEmitter2
+
+_EventEmitter2_ has an `onAny` function. However, there is no way to dump the state of an emitter object. Because it also supports wildcards, such as `on('foo.*')`, the source code is rather complicated to figure out. I did manage to place `console.log()` statements to detect a bug in my own program, but it was unnecessarily hard. The module is also replete with performance optimizations of which I do not think they do anything for performance at all, but still manage to further complicate the situation.
+
+In my opinion, there is actually no good justification for adding the `on('foo.*')` function. You can just use `onAny()` and trivially skip the events that you do not need:
+
+```javascript
+onAny(function() {
+
+        if(!/foo\.*/.test(emitter.event)) return;
+
+        //remainder of your listener code
+
+});
+```
+
+Is it really necessary to seriously complicate the source code of the module in order to implement this anyway? 
 
 <a name="whynoteventemitter3"></a>
 
-###9.5\. Why not EventEmitter3
-- no onAny
+###9.6\. Why not EventEmitter3
+
+_EventEmitter3_ does not have an `onAny` function. It is not implemented using any form of set algebra either.
+
+Therefore, instead of (probably) painstakingly figuring out how to extend any of the alternative EventEmitter classes, it looked easier to roll my own.
 
 <a name="contact"></a>
 
