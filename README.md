@@ -13,6 +13,15 @@
 4.7\.  [Example 6](#example6)  
 4.8\.  [Example 7](#example7)  
 5\.  [API](#api)  
+5.0.1\.  [Emitter()](#emitter)  
+5.0.2\.  [init()](#init)  
+5.0.3\.  [on(event, listener)](#oneventlistener)  
+5.0.4\.  [once(event, listener)](#onceeventlistener)  
+5.0.5\.  [onAny(listener)](#onanylistener)  
+5.0.6\.  [emit(event, [arg1,arg2,arg3,...])](#emitevent[arg1arg2arg3...])  
+5.0.7\.  [removeListener(event, listener)](#removelistenereventlistener)  
+5.0.8\.  [removeAllListeners([event])](#removealllisteners[event])  
+5.0.9\.  [toString()](#tostring)  
 6\.  [Development tools](#developmenttools)  
 7\.  [Building](#building)  
 8\.  [Testing](#testing)  
@@ -280,6 +289,96 @@ console.log(emitter.toString());
 <a name="api"></a>
 
 ##5\. API
+
+
+
+<!-- Start index.js -->
+
+<a name="emitter"></a>
+
+#### 5.0.1\. Emitter()
+
+Constructor. Creates an emitter object.
+
+<a name="init"></a>
+
+#### 5.0.2\. init()
+
+Initializes the emitter's data structure.
+Is called by the constructor and must be called by any class that inherits from this one.
+
+<a name="oneventlistener"></a>
+
+#### 5.0.3\. on(event, listener)
+
+Registers a listener function for a particular event.
+
+_Params_ 
+
+* **string** *event* The event for which to register the listener function.
+* **function** *listener* The listener function to register.
+
+<a name="onceeventlistener"></a>
+
+#### 5.0.4\. once(event, listener)
+
+Registers a listener function for a particular event. The listener will be triggered at most once.
+
+_Params_ 
+
+* **string** *event* The event for which to register the listener function.
+* **function** *listener* The listener function to register.
+
+<a name="onanylistener"></a>
+
+#### 5.0.5\. onAny(listener)
+
+Registers a listener function for all events.
+
+_Params_ 
+
+* **function** *listener* The listener function to register.
+
+<a name="emitevent[arg1arg2arg3...]"></a>
+
+#### 5.0.6\. emit(event, [arg1,arg2,arg3,...])
+
+Emits an event and triggers the listeners registered for this event.
+function(event, [arg1, arg2, arg3, ...])
+
+_Params_ 
+
+* **function** *event* The event to trigger.
+* **any** *[arg1,arg2,arg3,...]* Optional parameters that should be                 transmitted to the listener. As many parameters as needed can be transmitted
+
+<a name="removelistenereventlistener"></a>
+
+#### 5.0.7\. removeListener(event, listener)
+
+Removes a listener for a particular event.
+
+_Params_ 
+
+* **string** *event* The event for which to remove the listener function.
+* **function** *listener* The listener function to remove.
+
+<a name="removealllisteners[event]"></a>
+
+#### 5.0.8\. removeAllListeners([event])
+
+Removes a listener for a particular event or from all events
+
+_Params_ 
+
+* **string** *[event]* The event for which to remove the listener function. If left undefined, the listener will be removed for all events.
+
+<a name="tostring"></a>
+
+#### 5.0.9\. toString()
+
+Dumps the current state of the emitter into string.
+
+<!-- End index.js -->
 
 
 <a name="developmenttools"></a>
