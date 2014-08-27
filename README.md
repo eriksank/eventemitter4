@@ -76,7 +76,7 @@ node doc/examples/1-on.js
 
 ### 4.2\. Example 1
 
-For `EventEmitter4.on(event,listener)`.
+For: _EventEmitter4.on(event,listener)_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -94,7 +94,7 @@ emitter.emit('finished-eating','John');
 
 ### 4.3\. Example 2
 
-For `EventEmitter4.once(event,listener)`.
+For: _EventEmitter4.once(event,listener)_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -114,7 +114,7 @@ emitter.emit('finished-eating','John');
 
 ### 4.4\. Example 3
 
-For `EventEmitter4.onAny(listener)`.
+For: _EventEmitter4.onAny(listener)_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -143,7 +143,7 @@ emitter.emit('finished-playing-ball','Ann');
 
 ### 4.5\. Example 4
 
-For `EventEmitter4.removeListener(event,listener)`.
+For: _EventEmitter4.removeListener(event,listener)_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -171,7 +171,7 @@ emitter.emit('finished-eating','John');
 
 ### 4.6\. Example 5
 
-For `EventEmitter4.removeAllListeners([event])`.
+For: _EventEmitter4.removeAllListeners([event])_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -211,7 +211,7 @@ emitter.emit('finished-eating');
 
 ### 4.7\. Example 6
 
-Showing one possible way to inherited from EventEmitter4.
+For: _one possible way to inherit from EventEmitter4_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
@@ -262,7 +262,7 @@ mum.reactToFinishedEating();
 
 ### 4.8\. Example 7
 
-For `EventEmitter4.toString()`.
+For: _EventEmitter4.toString()_
 
 ```javascript
 var EventEmitter=require('eventemitter4');
