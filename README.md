@@ -533,9 +533,9 @@ Some people call a tool like _underscore.js_ a tool of functional programming. I
 
 In my opinion, _underscore.js_ is better termed an implementation of _set algebra_. It pretty much does the same as SQL, but then just on one table in memory. The main difference between _underscore.js_ and SQL, is that _underscore.js_ does not implement functions for dealing with the [cartesian product](http://en.wikipedia.org/wiki/Cartesian_product), that is, _joining_ multiple sets.
 
-The use of _set algebra_ often turns functions that deal with tree data structures into one-liners. Since _EventEmitter4_ only deals with trees of maximum two levels -- which is a relatively simple data structure -- the use of set algebra is results in surprisingly short functions. These functions are at the same time much easier to read.
+The use of _set algebra_ often turns functions that deal with tree data structures into one-liners. Since _EventEmitter4_ only deals with trees of maximum two levels -- which is a relatively simple data structure -- the use of set algebra results in surprisingly short functions. These functions are at the same time much easier to read.
 
-It also means that you can easily put _console.log()_ statements in the module's source code, if you ever needed it. Furthermore, this also means that it is much easier for other people to help fixing bugs or offer pull requests.
+It also means that you can easily put _console.log()_ statements in the module's source code, if you ever need it. Furthermore, this also means that it is much easier for other people to help fixing bugs or offer pull requests.
 
 <a name="concerningperformance"></a>
 
@@ -543,31 +543,33 @@ It also means that you can easily put _console.log()_ statements in the module's
 
 Since all real work in _EventEmitter4_ is done by calling into _underscore.js_, it relegates any performance issue to that module. _EventEmitter4_ has no performance characteristics on its own.
 
-I strongly suspect that the performance for _underscore.js_ -- I haven't had time or a pressing need to read its source code up till now -- is to an important extent relegated to the performance of the implementation of _Object_ and _Array_ classes in nodejs. Since _underscore.js_ is based on the use of repeated function calls, it also counts on the Javascript engine's to minimize its overhead when executing function calls.
+I strongly suspect that the performance for _underscore.js_ -- up till now I have not had time or a pressing need to read its source code -- is to an important extent relegated to the performance of the implementation of _Object_ and _Array_ classes in nodejs. Since _underscore.js_ is based on the use of repeated function calls, it also counts on the Javascript engine to minimize its overhead when executing function calls.
 
 Typical NodeJS code is replete with listeners functions and callback functions. There would be no point in trying to fix any performance issue related to that, just in _EventEmitter4_. 
 
-The responsibility for those areas falls squarely onto the Google v8 team. If they can make further performance improvements in those areas, they would not just improve the performance of _EventEmitter4_ but for all possible modules and applications.
+The responsibility for those areas falls squarely onto the Google v8 team. If they can make further performance improvements in those areas, they would not just improve the performance of _EventEmitter4_ but of all possible modules and applications.
 
 In other words, one reason why an alternative _EventEmitter_ implementation could be fundamentally faster than _EventEmitter4_, is that it uses faster data structures than the standard _Object_ and _Array_ classes. The _EventEmitter2_ and _EventEmitter3_ libraries definitely do not do this.
 
-Painstakingly spelling out data manipulations manually, instead of using set algebra, will not necessarily make their programs any faster. It will just bloat the source code and make it more difficult to read. 
+Painstakingly spelling out data manipulations manually, instead of using _set algebra_, will not necessarily make their programs any faster, but it will bloat the source code and make it more difficult to read. 
 
-I did not go that route, because performance in ultra-simple code such as _EventEmitter4_, is something that can only be improved at lower levels.
+I did not go down the route of replacing set algebra functions by manually-devised code, because the performance in ultra-simple code such as _EventEmitter4_, is something that can only be improved at lower levels.
 
 <a name="whynotthestandardnodejseventemitter"></a>
 
 ###9.4\. Why not the standard nodejs EventEmitter
 
-I really needed an `onAny()` function in my project. The standard nodejs _EventEmitter_ class does not implement it. At the same time, the internal data structure of the standard _EventEmitter_ class is not particularly documented anywhere, as far as I know. 
+I really needed an `onAny()` function in my project. The standard nodejs _EventEmitter_ class does not implement it. At the same time, the internal data structure of the standard _EventEmitter_ class is not particularly documented anywhere, as far as I know. You would have to painstakingly excise it from its source code, just like I was eventually forced to do for _EventEmitter2_.
 
 <a name="whynoteventemitter2"></a>
 
 ###9.5\. Why not EventEmitter2
 
-_EventEmitter2_ does have an `onAny()` function. However, there is no way to dump the state of its emitter objects. Because it also supports wildcards, such as `on('foo.*')`, the source code became large and is rather difficult to figure out.
+_EventEmitter2_ does have an `onAny()` function.
 
-I managed to place _console.log()_ statements to check the state of the _EventEmitter2_ class, in order to detect a bug in my own program, but it was unnecessarily hard. The module is also replete with performance optimizations of which I do not think that they do anything for performance at all. These redundant optimizations still manage to further complicate the already overburdened source code of the module.
+However, there is no way to dump the state of its emitter objects. Because it also supports wildcards, such as `on('foo.*')`, the _EventEmitter2_ source code became large and is rather difficult to figure out.
+
+I managed to place _console.log()_ statements to check the state of the _EventEmitter2_ class, in order to detect a bug in my own program, but it was unnecessarily hard. The module is also replete with performance optimizations of which I do not believe for a second that they do anything for performance at all. These redundant optimizations still manage to further complicate the already overburdened source code of the module.
 
 In my opinion, there is actually no reasonable justification for implementing the `on('foo.*')` functionality. You can just use `onAny()` and trivially skip the events that you do not need:
 
@@ -587,9 +589,9 @@ Is it really necessary to complicate the source code of the module tremendously 
 
 ###9.6\. Why not EventEmitter3
 
-_EventEmitter3_ does not have an `onAny()` function. The module is not implemented using any form of set algebra either. So, I did not particularly feel like extending it either.
+_EventEmitter3_ does not have an `onAny()` function. The module is not implemented using any form of _set algebra_ either. Therefore, I did not particularly feel like extending it.
 
-Therefore, instead of painstakingly extending any of these alternative _EventEmitter_ classes, I made the decision to roll my own.
+Consequently, instead of painstakingly extending any of these alternative _EventEmitter_ classes, I made the decision to roll my own.
 
 <a name="contact"></a>
 
