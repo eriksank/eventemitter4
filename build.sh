@@ -21,7 +21,7 @@ uglifyjs browser-support/$project-bundle.js -o browser-support/$project-bundle.m
 for apiFile in $apiFiles; do
         basename=$(basename $apiFile .js)
         markdox $apiFile -o doc/api/$basename.draft.md
-        sed -e 's/^### Params:/_Params_/' -e 's/^##[^#]/#### /'  doc/api/$basename.draft.md > \
+        sed -e 's/^### Params:/_Params_/' -e 's/^##[^#]/### /'  doc/api/$basename.draft.md > \
                doc/api/$basename.md
         rm -f doc/api/$basename.draft.md
 done
