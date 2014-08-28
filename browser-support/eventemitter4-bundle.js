@@ -144,7 +144,7 @@ Emitter.prototype.removeAllListeners=function(event) {
         if(_.isUndefined(event)) {
 
                 //reset all data structures
-                this.constructorSecondPart();
+                this.init();
 
         } else {
 
