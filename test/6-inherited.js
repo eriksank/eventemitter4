@@ -14,12 +14,11 @@ describe('toString', function(){
                 }
 
                 _.extend(Mum.prototype,EventEmitter.prototype);
-                Mum.prototype.parentInit=EventEmitter.prototype.init;
 
                 var timesCalled=0;
 
                 Mum.prototype.init=function() {
-                        this.parentInit();
+                        EventEmitter.prototype.init.call(this);
                         this.whatever='I am mum';        
                 }
 

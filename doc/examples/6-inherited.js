@@ -11,12 +11,10 @@ function Mum() {
 
 //extend Mum with EventEmitter
 _.extend(Mum.prototype,EventEmitter.prototype);
-//Keep track of the parentInit function
-Mum.prototype.parentInit=EventEmitter.prototype.init;
 
 //Calls the parent init() function
 Mum.prototype.init=function() {
-        this.parentInit();
+        EventEmitter.prototype.init.call(this);
         this.whatever='I am mum';        
 }
 
